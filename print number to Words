@@ -7,6 +7,7 @@ string str=convertToWords(num1);
 string temp=trim(str);
 	//temp.erase(std::remove_if(temp.begin(), temp.end(), ::isspace), temp.end());
 
+//return str;
 
 return temp;
 }
@@ -15,35 +16,41 @@ return temp;
 {
     // stores word representation of given number n
     string out;
-
-     out += numToWords(((num /1000000000) % 10), " Billion ");
-     out += numToWords(((num /100000000) % 10), " Hundred ");
+     out += numToWords(((num /1000000000) % 10), " Billion ");     
+       
+                if(((num%100000000)==0) || (((num/1000000)%100)==0))
+ out += numToWords(((num /100000000) % 10), " Hundred Million ");
+                else
+       out += numToWords(((num /100000000) % 10) , " Hundred ");
+       
+    
     // handles digits at hundred thousands and one
     // millions places (if any)
     out += numToWords(((num / 1000000) % 100), " Million ");
+           if (((num%100000)==0) || (((num/1000)%100)==0))
+       out += numToWords(((num / 100000) % 10), " Hundred Thousand ");
+     else
  // handles digit at hundreds places (if any)
     out += numToWords(((num / 100000) % 10), " Hundred ");
- 
+        
     // handles digits at thousands and tens thousands
     // places (if any)
     out += numToWords(((num / 1000) % 100), " Thousand ");
  
     // handles digit at hundreds places (if any)
     out += numToWords(((num / 100) % 10), " Hundred ");
- 
-    
- 
+
     // handles digits at ones and tens places (if any)
     out += numToWords((num % 100),"");
    
     //Handling the n=0 case
     if(out=="")
     out = "Zero";
+
     return out;
 };
 
     
-
 string numToWords(long num, string s)
      
 {
@@ -67,7 +74,7 @@ string ten[] = { "", "", "Twenty", "Thirty", "Forty",
     else if ((num > 19) && (num%10==0))
         str +=ten[num / 10];
     
-    else
+    else 
         str += one[num];
  
     // if n is non-zero
