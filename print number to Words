@@ -1,12 +1,14 @@
-print num to Word
 class Solution {
 public:
     string numberToWords(int num) {
        long num1=(long)num;
 // n is 1- or 2-digit number
 string str=convertToWords(num1);
+string temp=trim(str);
+	//temp.erase(std::remove_if(temp.begin(), temp.end(), ::isspace), temp.end());
 
-return str;
+
+return temp;
 }
 // Function to print a given number in words
  string convertToWords(long num)
@@ -37,7 +39,6 @@ return str;
     //Handling the n=0 case
     if(out=="")
     out = "Zero";
- 
     return out;
 };
 
@@ -72,5 +73,20 @@ string ten[] = { "", "", "Twenty", "Thirty", "Forty",
     // if n is non-zero
     if (num)   str += s;
     return str;
+};
+
+std::string trim(const std::string &s)
+{
+	auto start = s.begin();
+	while (start != s.end() && std::isspace(*start)) {
+		start++;
+	}
+
+	auto end = s.end();
+	do {
+		end--;
+	} while (std::distance(start, end) > 0 && std::isspace(*end));
+
+	return std::string(start, end + 1);
 };
 };
