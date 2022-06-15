@@ -3,7 +3,7 @@
 #include<math.h>
 #include<vector>
 #include<algorithm>
-#include <string>
+#include <cstring>
 using namespace std;
 
 //defining a class
@@ -47,16 +47,21 @@ public:
     bool comparedist(const Points& p1,const Points& p2){
     return (p1.dist<p2.dist);
     };
-
-
-    int main(){
-
+//removing special characters such as " "
+    void removeCharsFromString( string &str, char* charsToRemove ) {
+   for ( unsigned int i = 0; i < strlen(charsToRemove); ++i ) {
+      str.erase( remove(str.begin(), str.end(), charsToRemove[i]), str.end() );
+        }
+    };
+int main(int argc, char* argv[]){
+         string file;
+        if (argc=!2)
+            cout<<"Error in Passing arguments"<<endl;
+        else
+            file=argv[1];
    // Points points;
      ifstream myFile;
-    cout<<"Enter File name : ";
-    string file;
-    cin>>file;
-    myFile.open(file);//point.txt
+    myFile.open(file , ios::in);//point.txt
     vector <Points> arr;
     if(myFile.is_open()){
             string tp;
@@ -91,19 +96,21 @@ public:
 
              //open file for writing
              string ofpath;
-             cout<<"Enter the path to Write on file";
+             cout<<"Enter the path to Write on file"<<endl;
              cin>>ofpath;
-            ofstream fw(ofpath,ofstream::out);
+            removeCharsFromString(ofpath, "\"" );
+
+           ofstream fw(ofpath , ios::out );
+
             //check if file was successfully opened for writing
             if (fw.is_open())
             {
-                   fw<< "After sorting"<<endl;
-
-              //store array contents to text file
+                   fw << "After sorting"<<endl;
+                //store array contents to text fil
               for(Points p : arr){
-
-            fw<<p.co_ordinate<<" "<<"distance from origin: "<<p.dist<<endl;
-          }
+            cout<<p.co_ordinate<<" "<<"distance from origin: "<<p.dist<<endl;
+            fw <<p.co_ordinate<<" "<<"distance from origin: "<<p.dist<<endl;
+            }
 
               fw.close();
             }
@@ -112,7 +119,6 @@ public:
 
     return 0;
 }
-
 
 
 
