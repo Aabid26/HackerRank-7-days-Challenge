@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        string StringNum="";
+       int number=0, diff=0;  
+        
+        for (int i=0;i<s.length();i++) {
+          
+            if(s [i]!=' ' || s[i]=='+'|| s[i]=='-' || isdigit(s[i]) || s[i]!='0' || s[i]!='.')
+                StringNum+=s[i];
+        }
+        
+        if (StringNum=="") StringNum+='0';
+    
+        stringstream convertedOutput(StringNum);
+        convertedOutput >> number;
+        
+        if (number>INT_MIN && number<INT_MAX)
+        return number;
+        
+        else if (number<INT_MIN) {
+            diff=INT_MIN-number;
+            return (number-diff);
+        }
+        
+        else if (number>INT_MAX) {
+            diff=INT_MAX-number;
+        return (number-diff);
+    }
+        
+        else return number ;
+  }
+};
